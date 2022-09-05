@@ -33,25 +33,29 @@ app.put("/products/:id",(req,res)=>{
     let data= fs.readFileSync("./products.json",{encoding:"utf-8"});
     let products= JSON.parse(data);
     let product= products.find((p)=> p.id==id);
-    product.title= title ;
-    // res.json(product);
-    let Products= [...products]
-    fs.writeFileSync("./products.json",JSON.stringify(Products))
-    res.send("product updated")
+    if(product!==undefined){
+        product.title= title ;
+        // res.json(product);
+        let Products= [...products]
+        fs.writeFileSync("./products.json",JSON.stringify(Products))
+        res.send("product updated")
+    }else{
+        res.status(404).send("product not found")
+    }
+    
 })
 app.delete("/products/:id",(req,res)=>{
     let {id}= req.params;
     let data= fs.readFileSync("./products.json",{encoding:"utf-8"});
     let products= JSON.parse(data);
     let index= products.findIndex((p)=> p.id===parseInt(id));
-    console.log(index)
-    if(index>0){
+    if(index>=0){
         products.splice(index,1)
         //let Products= [...products];
         fs.writeFileSync("./products.json", JSON.stringify(products))
         res.send("deleted successfully")
     }else{
-        res.status(404).send("error")
+        res.status(404).send("product is not in the server")
     }
 })
 app.listen(7000,()=>{
