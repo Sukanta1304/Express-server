@@ -28,10 +28,16 @@ Delete - DELETE - /products/:productId - delete the product of the given product
 Hint : Checkout "File system" module of node to store/read data from a file.
 
 ## Installation 
+* set package file 
 ```
-intall/set package file 
 npm init -y
-install express package
+```
+* install express package
+```
 npm i express
+```
+* install nodemon to auto restart server
+```
+npm i nodemon -D
 ```
 
